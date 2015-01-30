@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<NDependRules ProjectName="ConsoleApplication1" ProjectFilePath="C:\ConsoleApplication1.ndproj" NDependVersion="6.0.0.8683">
+  <Rule Key="Key1" Priority="BLOCKER" Category="Code Quality">
+    <Name><![CDATA[Name1]]></Name>
+    <Description><![CDATA[Description1]]></Description>
+  </Rule>
+  <Rule Key="Key2" Priority="MAJOR">
+    <Name><![CDATA[Name2]]></Name>
+    <Description><![CDATA[Description2]]></Description>
+  </Rule>
+  <Rule Key="Key3" Priority="MINOR" Category="Object Oriented Design">
+    <Name><![CDATA[Name3]]></Name>
+    <Description><![CDATA[Description3]]></Description>
+  </Rule>
+</NDependRules>

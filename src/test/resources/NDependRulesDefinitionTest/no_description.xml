@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<NDependRules ProjectName="ConsoleApplication1" ProjectFilePath="C:\ConsoleApplication1.ndproj" NDependVersion="6.0.0.8683">
+  <Rule Key="Key1" Priority="BLOCKER" Category="Code Quality">
+    <Name><![CDATA[Name1]]></Name>
+  </Rule>
+</NDependRules>

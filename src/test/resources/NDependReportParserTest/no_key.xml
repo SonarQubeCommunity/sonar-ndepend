@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<NDependReport ProjectName="ConsoleApplication1" ProjectFilePath="ConsoleApplication1.ndproj" NDependVersion="6.0.0.8683">
+  <Assembly Name="ConsoleApplication1" File="File.cs" Line="1">
+    <Violations>
+      <RuleViolated Priority="MAJOR" Category="System" />
+    </Violations>
+  </Assembly>
+</NDependReport>
