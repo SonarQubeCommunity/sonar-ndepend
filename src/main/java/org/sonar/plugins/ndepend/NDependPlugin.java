@@ -70,12 +70,6 @@ public class NDependPlugin extends SonarPlugin {
         .category(CATEGORY)
         .onQualifiers(Qualifiers.PROJECT, Qualifiers.MODULE)
         .build(),
-      PropertyDefinition.builder(NDEPEND_PROJECT_PATH_PROPERTY_KEY)
-        .name("Project file")
-        .description("Must be an absolute path. Example: C:/project.ndproj")
-        .category(CATEGORY)
-        .onQualifiers(Qualifiers.PROJECT, Qualifiers.MODULE)
-        .build(),
       PropertyDefinition.builder(TIMEOUT_PROPERTY_KEY)
         .name("NDepend execution timeout")
         .description("Time in minutes after which NDepend's execution should be interrupted if not finished")
@@ -83,6 +77,12 @@ public class NDependPlugin extends SonarPlugin {
         .category(CATEGORY)
         .onQualifiers(Qualifiers.PROJECT)
         .type(PropertyType.INTEGER)
+        .build(),
+      PropertyDefinition.builder(NDEPEND_PROJECT_PATH_PROPERTY_KEY)
+        .name("Project file")
+        .description("Must be an absolute path. Example: C:/project.ndproj")
+        .category(CATEGORY)
+        .onlyOnQualifiers(Qualifiers.PROJECT, Qualifiers.MODULE)
         .build());
   }
 
