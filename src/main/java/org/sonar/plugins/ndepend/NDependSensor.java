@@ -32,6 +32,7 @@ import org.sonar.api.issue.Issuable;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rule.RuleKey;
+import org.sonar.api.rules.ActiveRule;
 
 import java.io.File;
 
@@ -86,6 +87,12 @@ public class NDependSensor implements Sensor {
 
         @Override
         public void onIssue(String ruleKey, String file, int line) {
+          ActiveRule rule = profile.getActiveRule(NDependPlugin.REPOSITORY_KEY, ruleKey);
+          if (rule == null) {
+            LOG.debug("Ignoring NDepend issue on disabled rule " + ruleKey + " for file " + file + " line " + line);
+            return;
+          }
+
           InputFile inputFile = fs.inputFile(
             fs.predicates().and(
               fs.predicates().hasAbsolutePath(file),
@@ -94,12 +101,11 @@ public class NDependSensor implements Sensor {
           if (inputFile != null) {
             // TODO Log message if file not available
             Issuable issuable = perspectives.as(Issuable.class, org.sonar.api.resources.File.create(inputFile.relativePath()));
-            // TODO Verify that the rule is enabled
             issuable.addIssue(
               issuable.newIssueBuilder()
                 .ruleKey(RuleKey.of(NDependPlugin.REPOSITORY_KEY, ruleKey))
                 .line(line)
-                .message("...").build());
+                .message(rule.getRule().getName()).build());
           }
         }
 
