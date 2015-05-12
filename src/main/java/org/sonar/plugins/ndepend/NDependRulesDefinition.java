@@ -129,7 +129,7 @@ public class NDependRulesDefinition implements RulesDefinition {
 
           NewRule rule = repository.createRule(key).setName(name).setSeverity(priority).setHtmlDescription(description);
           if (category != null) {
-            rule.addTags(category.toLowerCase().replace(' ', '-'));
+            rule.addTags(category);
           }
 
           break;
