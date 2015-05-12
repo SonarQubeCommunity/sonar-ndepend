@@ -59,7 +59,7 @@ public class NDependPlugin extends SonarPlugin {
     return ImmutableList.of(
       PropertyDefinition.builder(RULES_PROPERTY_KEY)
         .name("NDepend rules")
-        .description("Output of RuleSetBuilder.exe. Restart the SonarQube server to make changes to this property effective.")
+        .description("XML output of NDepend.SonarQube.RuleSetBuilder.exe. Restart the SonarQube server to make changes to this property effective.")
         .category(CATEGORY)
         .onQualifiers(Qualifiers.PROJECT, Qualifiers.MODULE)
         .type(PropertyType.TEXT)
