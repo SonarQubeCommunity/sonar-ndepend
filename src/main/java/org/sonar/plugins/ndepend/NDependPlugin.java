@@ -61,7 +61,6 @@ public class NDependPlugin extends SonarPlugin {
         .name("NDepend rules")
         .description("XML output of NDepend.SonarQube.RuleSetBuilder.exe. Restart the SonarQube server to make changes to this property effective.")
         .category(CATEGORY)
-        .onQualifiers(Qualifiers.PROJECT, Qualifiers.MODULE)
         .type(PropertyType.TEXT)
         .build(),
       PropertyDefinition.builder(RULE_RUNNER_PATH_PROPERTY_KEY)
