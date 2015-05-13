@@ -21,14 +21,12 @@ package org.sonar.plugins.ndepend;
 
 import com.google.common.base.Preconditions;
 import org.sonar.api.BatchComponent;
-import org.sonar.api.BatchExtension;
 import org.sonar.api.ServerComponent;
-import org.sonar.api.ServerExtension;
 import org.sonar.api.config.Settings;
 
 import java.io.File;
 
-public class NDependConfiguration implements BatchComponent, ServerComponent, BatchExtension, ServerExtension {
+public class NDependConfiguration implements BatchComponent, ServerComponent {
 
   private final Settings settings;
 

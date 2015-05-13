@@ -50,7 +50,7 @@
   <properties>
     <sonar.pluginName>NDepend</sonar.pluginName>
     <sonar.pluginClass>org.sonar.plugins.ndepend.NDependPlugin</sonar.pluginClass>
-    <sonarqube.version>4.5.1</sonarqube.version>
+    <sonarqube.version>4.5.2</sonarqube.version>
 
     <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
   </properties>

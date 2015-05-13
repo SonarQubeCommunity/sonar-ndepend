@@ -67,10 +67,8 @@ public class NDependReportParser {
         stream = xmlFactory.createXMLStreamReader(reader);
 
         while (stream.hasNext()) {
-          if (stream.next() == XMLStreamConstants.START_ELEMENT) {
-            if (getAttribute("Name") != null) {
-              handleScope();
-            }
+          if (stream.next() == XMLStreamConstants.START_ELEMENT && getAttribute("Name") != null) {
+            handleScope();
           }
         }
       } catch (IOException e) {

@@ -103,7 +103,12 @@ public class NDependSensor implements Sensor {
             return;
           }
 
-          Issuable issuable = perspectives.as(Issuable.class, org.sonar.api.resources.File.create(inputFile.relativePath()));
+          Issuable issuable = perspectives.as(Issuable.class, inputFile);
+          if (issuable == null) {
+            LOG.debug("Ignoring NDepend issue on file without issuable " + file + " line " + line + " for rule " + ruleKey);
+            return;
+          }
+
           issuable.addIssue(
             issuable.newIssueBuilder()
               .ruleKey(RuleKey.of(NDependPlugin.REPOSITORY_KEY, ruleKey))
