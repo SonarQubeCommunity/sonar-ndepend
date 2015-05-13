@@ -74,7 +74,7 @@ public class NDependPlugin extends SonarPlugin {
         .description("Time in minutes after which NDepend's execution should be interrupted if not finished")
         .defaultValue("10")
         .category(CATEGORY)
-        .onQualifiers(Qualifiers.PROJECT)
+        .onQualifiers(Qualifiers.PROJECT, Qualifiers.MODULE)
         .type(PropertyType.INTEGER)
         .build(),
       PropertyDefinition.builder(NDEPEND_PROJECT_PATH_PROPERTY_KEY)
