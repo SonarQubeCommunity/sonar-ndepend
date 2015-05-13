@@ -98,15 +98,17 @@ public class NDependSensor implements Sensor {
               fs.predicates().hasAbsolutePath(file),
               fs.predicates().hasType(Type.MAIN)));
 
-          if (inputFile != null) {
-            // TODO Log message if file not available
-            Issuable issuable = perspectives.as(Issuable.class, org.sonar.api.resources.File.create(inputFile.relativePath()));
-            issuable.addIssue(
-              issuable.newIssueBuilder()
-                .ruleKey(RuleKey.of(NDependPlugin.REPOSITORY_KEY, ruleKey))
-                .line(line)
-                .message(rule.getRule().getName()).build());
+          if (inputFile == null) {
+            LOG.debug("Ignoring NDepend issue on unknown file " + file + " line " + line + " for rule " + ruleKey);
+            return;
           }
+
+          Issuable issuable = perspectives.as(Issuable.class, org.sonar.api.resources.File.create(inputFile.relativePath()));
+          issuable.addIssue(
+            issuable.newIssueBuilder()
+              .ruleKey(RuleKey.of(NDependPlugin.REPOSITORY_KEY, ruleKey))
+              .line(line)
+              .message(rule.getRule().getName()).build());
         }
 
       }).parse(reportFile);
