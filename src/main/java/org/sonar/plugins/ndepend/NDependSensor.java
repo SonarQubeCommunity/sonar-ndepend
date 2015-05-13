@@ -29,6 +29,7 @@ import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.InputFile.Type;
 import org.sonar.api.component.ResourcePerspectives;
 import org.sonar.api.issue.Issuable;
+import org.sonar.api.issue.Issuable.IssueBuilder;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rule.RuleKey;
@@ -109,11 +110,12 @@ public class NDependSensor implements Sensor {
             return;
           }
 
-          issuable.addIssue(
-            issuable.newIssueBuilder()
-              .ruleKey(RuleKey.of(NDependPlugin.REPOSITORY_KEY, ruleKey))
-              .line(line)
-              .message(rule.getRule().getName()).build());
+          IssueBuilder builder = issuable.newIssueBuilder();
+          builder.ruleKey(RuleKey.of(NDependPlugin.REPOSITORY_KEY, ruleKey));
+          builder.line(line);
+          builder.message(rule.getRule().getName());
+
+          issuable.addIssue(builder.build());
         }
 
         private void logSkippedIssue(String reason, String ruleKey, String file, int line) {

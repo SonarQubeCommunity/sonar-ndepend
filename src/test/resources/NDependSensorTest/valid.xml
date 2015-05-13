@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<NDependReport ProjectName="ConsoleApplication1" ProjectFilePath="ConsoleApplication1.ndproj" NDependVersion="6.0.0.8683">
+  <Assembly Name="ConsoleApplication1" File="ConsoleApplication1.exe">
+    <Violations>
+      <RuleViolated Key="MarkAssembliesWithCLSCompliant" Priority="MAJOR" Category="System" />
+    </Violations>
+    <Namespaces>
+      <Namespace Name="ConsoleApplication1" File="Program.cs" Line="7">
+        <Violations>
+          <RuleViolated Key="AvoidNamespacesWithFewTypes" Priority="MAJOR" Category="design" />
+        </Violations>
+        <Types>
+          <Type Name="Program" File="Program.cs" Line="9">
+            <Violations>
+              <RuleViolated Key="ClassWithNoDescendantShouldBeSealedIfPossible" Priority="MAJOR" Category="object-oriented-design" />
+              <RuleViolated Key="AStatelessClassOrStructureMightBeTurnedIntoAStaticType" Priority="MAJOR" Category="object-oriented-design" />
+            </Violations>
+            <Members>
+              <Method Name=".ctor()" File="Program.cs">
+                <Violations>
+                  <RuleViolated Key="PotentiallyDeadMethods" Priority="BLOCKER" Category="dead-code" />
+                </Violations>
+              </Method>
+            </Members>
+          </Type>
+          <Type Name="Program2" File="Program2.cs" Line="9">
+            <Violations>
+              <RuleViolated Key="ClassWithNoDescendantShouldBeSealedIfPossible" Priority="MAJOR" Category="object-oriented-design" />
+            </Violations>
+          </Type>
+        </Types>
+      </Namespace>
+    </Namespaces>
+  </Assembly>
+</NDependReport>

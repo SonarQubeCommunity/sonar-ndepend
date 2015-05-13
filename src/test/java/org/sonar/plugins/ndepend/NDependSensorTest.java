@@ -20,19 +20,50 @@
 package org.sonar.plugins.ndepend;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.io.Files;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+import org.mockito.Mockito;
+import org.sonar.api.batch.SensorContext;
+import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.component.ResourcePerspectives;
+import org.sonar.api.issue.Issuable;
+import org.sonar.api.issue.Issuable.IssueBuilder;
+import org.sonar.api.issue.Issue;
+import org.sonar.api.measures.FileLinesContext;
+import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
+import org.sonar.api.rule.RuleKey;
 import org.sonar.api.rules.ActiveRule;
+import org.sonar.api.rules.Rule;
+
+import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class NDependSensorTest {
+
+  @org.junit.Rule
+  public TemporaryFolder tmp = new TemporaryFolder();
+
+  private NDependConfiguration conf;
+  private SensorContext context;
+  private DefaultInputFile inputFile;
+  private DefaultFileSystem fs;
+  private FileLinesContext fileLinesContext;
+  private FileLinesContextFactory fileLinesContextFactory;
+  private NDependExecutor executor;
+  private ResourcePerspectives perspectives;
+  private Issuable issuable;
+  private IssueBuilder issueBuilder;
+  private Issue issue;
 
   @Test
   public void shouldExecuteOnProject() {
@@ -57,6 +88,61 @@ public class NDependSensorTest {
 
     when(profile.getActiveRulesByRepository("ndepend")).thenReturn(ImmutableList.<ActiveRule>of());
     assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
+  }
+
+  @Before
+  public void init() throws Exception {
+    conf = mock(NDependConfiguration.class);
+    when(conf.ruleRunnerPath()).thenReturn("NDepend.SonarQube.RuleRunner.exe");
+    when(conf.ndependProjectPath()).thenReturn("project.ndproj");
+    when(conf.timeout()).thenReturn(42);
+
+    fs = new DefaultFileSystem();
+    File workDir = tmp.newFolder("NDependSensorTest");
+    fs.setWorkDir(workDir);
+
+    File reportFile = new File(workDir, "ndepend-report.xml");
+    Files.copy(new File("src/test/resources/NDependSensorTest/valid.xml"), reportFile);
+
+    inputFile = new DefaultInputFile("Program.cs").setAbsolutePath("Program.cs");
+    fs.add(inputFile);
+
+    fileLinesContext = mock(FileLinesContext.class);
+    fileLinesContextFactory = mock(FileLinesContextFactory.class);
+    when(fileLinesContextFactory.createFor(inputFile)).thenReturn(fileLinesContext);
+
+    executor = mock(NDependExecutor.class);
+
+    perspectives = mock(ResourcePerspectives.class);
+    issuable = mock(Issuable.class);
+    issueBuilder = mock(IssueBuilder.class);
+    when(issuable.newIssueBuilder()).thenReturn(issueBuilder);
+    issue = mock(Issue.class);
+    when(issueBuilder.build()).thenReturn(issue);
+    when(perspectives.as(Mockito.eq(Issuable.class), Mockito.any(InputFile.class))).thenReturn(issuable);
+
+    Rule rule = mock(Rule.class);
+    when(rule.getName()).thenReturn("my rule name");
+    ActiveRule activeRule = mock(ActiveRule.class);
+    when(activeRule.getRule()).thenReturn(rule);
+
+    RulesProfile rulesProfile = mock(RulesProfile.class);
+    when(rulesProfile.getActiveRule(NDependPlugin.REPOSITORY_KEY, "ClassWithNoDescendantShouldBeSealedIfPossible")).thenReturn(activeRule);
+
+    NDependSensor sensor = new NDependSensor(conf, fs, rulesProfile, perspectives);
+
+    context = mock(SensorContext.class);
+    sensor.analyze(context, executor);
+
+    verify(executor).execute("NDepend.SonarQube.RuleRunner.exe", "project.ndproj", reportFile, 42);
+  }
+
+  @Test
+  public void issue() {
+    verify(issueBuilder).ruleKey(RuleKey.of(NDependPlugin.REPOSITORY_KEY, "ClassWithNoDescendantShouldBeSealedIfPossible"));
+    verify(issueBuilder).message("my rule name");
+    verify(issueBuilder).line(9);
+    verify(issuable).addIssue(issue);
   }
 
 }
