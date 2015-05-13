@@ -89,7 +89,7 @@ public class NDependSensor implements Sensor {
         public void onIssue(String ruleKey, String file, int line) {
           ActiveRule rule = profile.getActiveRule(NDependPlugin.REPOSITORY_KEY, ruleKey);
           if (rule == null) {
-            LOG.debug("Ignoring NDepend issue on disabled rule " + ruleKey + " for file " + file + " line " + line);
+            logSkippedIssue("the rule is disabled in the current quality profile", ruleKey, file, line);
             return;
           }
 
@@ -99,13 +99,13 @@ public class NDependSensor implements Sensor {
               fs.predicates().hasType(Type.MAIN)));
 
           if (inputFile == null) {
-            LOG.debug("Ignoring NDepend issue on unknown file " + file + " line " + line + " for rule " + ruleKey);
+            logSkippedIssue("the file is not imported in SonarQube", ruleKey, file, line);
             return;
           }
 
           Issuable issuable = perspectives.as(Issuable.class, inputFile);
           if (issuable == null) {
-            LOG.debug("Ignoring NDepend issue on file without issuable " + file + " line " + line + " for rule " + ruleKey);
+            logSkippedIssue("no issuable has been found for the file", ruleKey, file, line);
             return;
           }
 
@@ -114,6 +114,10 @@ public class NDependSensor implements Sensor {
               .ruleKey(RuleKey.of(NDependPlugin.REPOSITORY_KEY, ruleKey))
               .line(line)
               .message(rule.getRule().getName()).build());
+        }
+
+        private void logSkippedIssue(String reason, String ruleKey, String file, int line) {
+          LOG.debug("Skipping NDepend issue on file " + file + " at line " + line + " on rule " + ruleKey + " because " + reason);
         }
 
       }).parse(reportFile);
