@@ -7,28 +7,33 @@
     <Namespaces>
       <Namespace Name="ConsoleApplication1" File="Program.cs" Line="7">
         <Violations>
-          <RuleViolated Key="AvoidNamespacesWithFewTypes" Priority="MAJOR" Category="Design" />
+          <RuleViolated Key="AvoidNamespacesWithFewTypes" Priority="MAJOR" Category="design" />
         </Violations>
         <Types>
           <Type Name="Program" File="Program.cs" Line="9">
             <Violations>
-              <RuleViolated Key="ClassWithNoDescendantShouldBeSealedIfPossible" Priority="MAJOR" Category="Object Oriented Design" />
-              <RuleViolated Key="AStatelessClassOrStructureMightBeTurnedIntoAStaticType" Priority="MAJOR" Category="Object Oriented Design" />
-              <RuleViolated Key="NonStaticClassesShouldBeInstantiatedOrTurnedToStatic" Priority="MAJOR" Category="Object Oriented Design" />
+              <RuleViolated Key="ClassWithNoDescendantShouldBeSealedIfPossible" Priority="MAJOR" Category="object-oriented-design" />
+              <RuleViolated Key="AStatelessClassOrStructureMightBeTurnedIntoAStaticType" Priority="MAJOR" Category="object-oriented-design" />
+              <RuleViolated Key="NonStaticClassesShouldBeInstantiatedOrTurnedToStatic" Priority="MAJOR" Category="object-oriented-design" />
             </Violations>
           </Type>
           <Type Name="Program" File="Program.cs" Line="9">
             <Violations>
-              <RuleViolated Key="ClassWithNoDescendantShouldBeSealedIfPossible" Priority="MAJOR" Category="Object Oriented Design" />
-              <RuleViolated Key="AStatelessClassOrStructureMightBeTurnedIntoAStaticType" Priority="MAJOR" Category="Object Oriented Design" />
-              <RuleViolated Key="NonStaticClassesShouldBeInstantiatedOrTurnedToStatic" Priority="MAJOR" Category="Object Oriented Design" />
+              <RuleViolated Key="ClassWithNoDescendantShouldBeSealedIfPossible" Priority="MAJOR" Category="object-oriented-design" />
+              <RuleViolated Key="AStatelessClassOrStructureMightBeTurnedIntoAStaticType" Priority="MAJOR" Category="object-oriented-design" />
+              <RuleViolated Key="NonStaticClassesShouldBeInstantiatedOrTurnedToStatic" Priority="MAJOR" Category="object-oriented-design" />
             </Violations>
             <Members>
-              <Method Name=".ctor()">
+              <Method Name=".ctor()" File="Program.cs">
                 <Violations>
-                  <RuleViolated Key="PotentiallyDeadMethods" Priority="BLOCKER" Category="Dead Code" />
+                  <RuleViolated Key="PotentiallyDeadMethods" Priority="BLOCKER" Category="dead-code" />
                 </Violations>
               </Method>
+              <Field Name="Foo" File="Program.cs">
+                <Violations>
+                  <RuleViolated Key="PotentiallyDeadFields" Priority="BLOCKER" Category="dead-code" />
+                </Violations>
+              </Field>
             </Members>
           </Type>
         </Types>
