@@ -37,9 +37,9 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:git@github.com:SonarCommunity/sonar-ndepend.git</connection>
-    <developerConnection>scm:git:git@github.com:SonarCommunity/sonar-ndepend.git</developerConnection>
-    <url>https://github.com/SonarCommunity/sonar-ndepend</url>
+    <connection>scm:git:git@github.com:SonarSource/sonar-ndepend.git</connection>
+    <developerConnection>scm:git:git@github.com:SonarSource/sonar-ndepend.git</developerConnection>
+    <url>https://github.com/SonarSource/sonar-ndepend</url>
     <tag>HEAD</tag>
   </scm>
   <issueManagement>
