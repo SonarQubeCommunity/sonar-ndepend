@@ -1,1 +1,5 @@
-[![Build Status](https://travis-ci.org/SonarSource/sonar-ndepend.svg?branch=master)](https://travis-ci.org/SonarSource/sonar-ndepend)
+NDepend Plugin
+==============
+[![Build Status](https://travis-ci.org/SonarQubeCommunity/sonar-ndepend.svg)](https://travis-ci.org/SonarQubeCommunity/sonar-ndepend)
+
+Please refer to [NDepend site](http://www.ndepend.com/docs/sonarqube-integration-ndepend).
